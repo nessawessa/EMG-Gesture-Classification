@@ -101,3 +101,59 @@ for epoch in range(200000):
 
     if epoch % 10000 == 0:
         print(f"Epoch = {epoch}, Error: {error[-1]}")
+
+# Save Trained Weights
+np.save('W_ij.npy', W_ij)
+np.save('W_jk.npy', W_jk)
+
+fig, ax = py.subplots()
+py.plot(error)
+ax.grid()
+ax.set_xlabel('epoch')
+ax.set_ylabel('Error Sum')
+
+# Save the trained weight values!
+np.save('W_ij', W_ij)
+np.save('W_jk', W_jk)
+
+# Testing
+correct = 0
+for i in range(len(X_test)):
+    z_nj = np.dot(X_test[i], W_ij)
+    a_nj = ReLU(z_nj)
+    z_nk = np.dot(a_nj, W_jk)
+    Y_out = ReLU(z_nk)
+
+    if Y_test[i] == np.argmax(Y_out):
+    correct += 1
+
+accuracy = (correct / len(X_test)) * 100
+print(f"ANN Accuracy: {accuracy}%")
+
+# Naive Bayes Classifier Implementation
+
+# Group Data by Classes
+classes = {i: X_train[Y_train[:]] == i, :} for i in range(n_postures)}
+
+# Calculate Mean and Std for Each Class
+class_stats = {i: (np.mean(classes[i], axis=0), np.std(classes[i], axis=0)) for i in range(n_postures)}
+
+# Prediction Function
+def predict_posture(val):
+    likelihoods = {}
+    for i in range(n_postures):
+    mean, std = class_stats[i]
+    likelihood = np.prod(norm.pdf(val, mean, std))
+    likelihoods[i] = likelihood * (len(classes[i]) / len(X_train))
+
+    return max(likelihoods, key=likelihoods.get)
+
+# Testing Naive Bayes
+correct_nb = 0
+for i in range(len(X_test)):
+    prediction = predict_posture(X_test[i])
+    if prediction == Y_test[i]:
+    correct_nb += 1
+
+accuracy_nb = (correct_nb / len(X_test)) * 100
+print(f"Naive Bayes Accuracy: {accuracy_nb}%")
