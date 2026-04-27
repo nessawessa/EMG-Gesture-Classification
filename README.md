@@ -1,4 +1,4 @@
-*Disclaimer: This repo serves as a refrence only for contrasting machine learning approaches and does not contain the EMG signal files used in testing.*
+*Disclaimer: This repo serves as a reference––contrasting machine learning approaches––and does not contain the EMG signal files used in testing.*
 
 This lab focuses on the classification of hand gestures using Electromyography (EMG) signals. 
 The problem at hand is to accurately identify different hand postures based on the electrical activity of muscles recorded by EMG sensors, achieving above a 60% success rate. 
