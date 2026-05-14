@@ -130,7 +130,7 @@ for i in range(len(X_test)):
 accuracy = (correct / len(X_test)) * 100
 print(f"ANN Accuracy: {accuracy}%")
 
-# Naive Bayes Classifier Implementation
+## Naive Bayes Classifier Implementation ##
 
 # Group Data by Classes
 classes = {i: X_train[Y_train[:]] == i, :} for i in range(n_postures)}
